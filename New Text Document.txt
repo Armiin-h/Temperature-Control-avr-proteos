@@ -1,0 +1,27 @@
+ if(fanStatus>V2){
+         PORTB.7=1;                         
+         if(checkfanPrint==false){
+            glcd_clear();
+            glcd_outtextxy(15,25,"Fan is ON");
+            checkfanPrint=true;
+         }   
+   }            
+   else if(fanStatus<V1) { 
+     PORTB.7=0; 
+     if(checkfanPrint==true){
+        glcd_clear();
+        glcd_outtextxy(15,25,"Fan is OFF");
+        checkfanPrint=false; 
+     }
+   }       
+    
+   for(i=0;i<deltaT*10000 && key==255;i++) key=get_key(); 
+   if(key==11){                         
+        glcd_clear(); 
+        glcd_line(5,5,5,55); 
+        glcd_line(5,55,155,55);
+        for(coppyJ=0;coppyJ<j;coppyJ++){
+            glcd_setpixel(6+deltaT*coppyJ,55-avg[coppyJ]);
+        }
+        delay_ms(1000);
+   }
